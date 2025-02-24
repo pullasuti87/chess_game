@@ -5,11 +5,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chess game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .chess-board {
+            border: 2px solid #333;
+            margin: 20px;
+            display: inline-block;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .white {
+            background-color: #ffffdf;
+        }
+
+        .black {
+            background-color: #87a665;
+        }
+
+        .letters {
+            display: flex;
+        }
+
+        .letter {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div class="chess">{{board}}</div>
+    <h1>current player: {{current_player}}</h1>
+
+
+    <div class="chess-board">
+        {% for i in range(8) %}
+        <div class="row">
+            {% for j in range(8) %}
+            {% set color = 'white' if (i + j) % 2 == 0 else 'black' %}
+            <div class="square {{ color  }}">
+                {{board[i][j]}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="letters">
+        {% for i in "abcdefgh" %}
+        <div class="letter">{{ i }}</div>
+        {% endfor %}
+    </div>
+
+    <form action="/move" method="POST">
+        <input type="text" name="from" placeholder="from" required>
+        <input type="text" name="to" placeholder="to" required>
+        <button type="submit">make move</button>
+    </form>
 </body>
 
 </html>

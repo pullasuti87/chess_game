@@ -12,7 +12,6 @@ def init_board():
         [" ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
         [" ", " ", " ", " ", " ", " ", " ", " "],
-        [" ", " ", " ", " ", " ", " ", " ", " "],
         ["P", "P", "P", "P", "P", "P", "P", "P"],
         ["R", "N", "B", "Q", "K", "B", "N", "R"],
     ]
@@ -21,7 +20,12 @@ def init_board():
 
 @app.route("/")
 def home():
-    return render_template("index.html", board=init_board())
+    return render_template("index.html", board=init_board(), current_player="white")
+
+
+@app.route("/move", methods=['POST'])
+def move():
+    return "HELLO"
 
 
 if __name__ == "__main__":
