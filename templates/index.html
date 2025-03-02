@@ -13,11 +13,24 @@
             flex-direction: column;
         }
 
+        .numbers-board {
+            display: flex;
+        }
+
+        .numbers {
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            margin-bottom: 35px;
+        }
+
         .chess-board {
             border: 2px solid #333;
             margin: 20px;
             display: inline-block;
         }
+
 
         .row {
             display: flex;
@@ -58,18 +71,26 @@
 
     <h1>current player: {{current_player}}</h1>
 
+    <div class="numbers-board">
+        <div class="numbers">
+            {% for i in range(8, 0, -1) %}
+            <div class="number">{{ i }}</div>
+            {% endfor %}
+        </div>
 
-    <div class="chess-board">
-        {% for i in range(8) %}
-        <div class="row">
-            {% for j in range(8) %}
-            {% set color = 'white' if (i + j) % 2 == 0 else 'black' %}
-            <div class="square {{ color  }}">
-                {{board[i][j]}}
+
+        <div class="chess-board">
+            {% for i in range(8) %}
+            <div class="row">
+                {% for j in range(8) %}
+                {% set color = 'white' if (i + j) % 2 == 0 else 'black' %}
+                <div class="square {{ color  }}">
+                    {{board[i][j]}}
+                </div>
+                {% endfor %}
             </div>
             {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
     <div class="letters">
@@ -79,8 +100,8 @@
     </div>
 
     <form action="/move" method="POST">
-        <input type="text" name="from" placeholder="from" required>
-        <input type="text" name="to" placeholder="to" required>
+        <input type="text" name="from_pos" placeholder="from" required>
+        <input type="text" name="to_pos" placeholder="to" required>
         <button type="submit">make move</button>
     </form>
 </body>
